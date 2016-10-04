@@ -1,0 +1,6 @@
+[ 
+  	{"userid":"u101","product":[{"id":1020,"name":"Microsoft Mouse","model":"X123DER","qty":3}]},
+    {"userid":"u101","product":[{"id":1023,"name":"Microsoft Surface","model":"WX12ER","qty":2}]},
+	{"userid":"u101","product":[{"id":1027,"name":"Apple Ipad","model":"XU13DER","qty":1}]},
+	{"userid":"u101","product":[{"id":1045,"name":"iBall Keyboard","model":"Y127HER","qty":3}]}
+]

@@ -1,0 +1,13 @@
+C:\Users\shg\Work\Work\Conferences\Vidyapeeth\SendMessage\SendMessage\bin\Debug\SendMessage.exe.config
+C:\Users\shg\Work\Work\Conferences\Vidyapeeth\SendMessage\SendMessage\bin\Debug\SendMessage.exe
+C:\Users\shg\Work\Work\Conferences\Vidyapeeth\SendMessage\SendMessage\bin\Debug\SendMessage.pdb
+C:\Users\shg\Work\Work\Conferences\Vidyapeeth\SendMessage\SendMessage\bin\Debug\Microsoft.ServiceBus.dll
+C:\Users\shg\Work\Work\Conferences\Vidyapeeth\SendMessage\SendMessage\bin\Debug\Newtonsoft.Json.dll
+C:\Users\shg\Work\Work\Conferences\Vidyapeeth\SendMessage\SendMessage\bin\Debug\Microsoft.ServiceBus.xml
+C:\Users\shg\Work\Work\Conferences\Vidyapeeth\SendMessage\SendMessage\bin\Debug\Newtonsoft.Json.xml
+C:\Users\shg\Work\Work\Conferences\Vidyapeeth\SendMessage\SendMessage\obj\Debug\SendMessage.csprojResolveAssemblyReference.cache
+C:\Users\shg\Work\Work\Conferences\Vidyapeeth\SendMessage\SendMessage\obj\Debug\SendMessage.exe
+C:\Users\shg\Work\Work\Conferences\Vidyapeeth\SendMessage\SendMessage\obj\Debug\SendMessage.pdb
+C:\repos\AzureVidyaPeeth\RedisCache\SendMessage\SendMessage\bin\Debug\SendMessage.exe.config
+C:\repos\AzureVidyaPeeth\RedisCache\SendMessage\SendMessage\obj\Debug\SendMessage.exe
+C:\repos\AzureVidyaPeeth\RedisCache\SendMessage\SendMessage\obj\Debug\SendMessage.pdb

@@ -1,0 +1,7 @@
+[
+	{"userid":"u1011","product":[{"id":1020,"name":"iBall Mouse","model":"WEX123DER","qty":1}]},
+    {"userid":"u1010","product":[{"id":1023,"name":"Microsoft Surface Book","model":"VRWX12ER","qty":3}]},
+	{"userid":"u1010","product":[{"id":1027,"name":"Apple iPhone 7","model":"XU13DERFG","qty":4}]},
+	{"userid":"u1010","product":[{"id":1045,"name":"Samsung Galaxy S7","model":"Y127HERTR","qty":1}]}
+		
+]

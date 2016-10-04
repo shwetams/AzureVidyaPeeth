@@ -1,0 +1,55 @@
+Redis commands:
+
+string:
+
+set mykey somevalue
+
+get mykey
+
+set mykey newval 
+
+
+set counter 100
+
+incr counter
+
+incrby counter 50
+
+
+mset a 10 b 20 c 30
+
+mget a b c
+
+
+rpush mylist A
+
+rpush mylist B
+
+ lpush mylist first
+
+lrange mylist 0 -1
+
+
+
+Hashes
+
+hmset user:1000 username antirez birthyear 1977 verified 1
+
+hget user:1000 username
+
+hget user:1000 birthyear
+
+hgetall user:1000
+
+
+Sets
+
+sadd myset 1 2 3
+
+smembers myset
+
+sismember myset 3
+
+
+
+

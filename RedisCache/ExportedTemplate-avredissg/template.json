@@ -1,0 +1,737 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "virtualMachines_avredisvm_adminPassword": {
+            "defaultValue": null,
+            "type": "SecureString"
+        },
+        "Redis_avrediscache_name": {
+            "defaultValue": "avrediscache",
+            "type": "String"
+        },
+        "Redis_avdemocache_name": {
+            "defaultValue": "avdemocache",
+            "type": "String"
+        },
+        "virtualMachines_avredisvm_name": {
+            "defaultValue": "avredisvm",
+            "type": "String"
+        },
+        "alertrules_CPUHigh_avappsvcpln_name": {
+            "defaultValue": "CPUHigh avappsvcpln",
+            "type": "String"
+        },
+        "alertrules_ForbiddenRequests_avgetcache_name": {
+            "defaultValue": "ForbiddenRequests avgetcache",
+            "type": "String"
+        },
+        "alertrules_LongHttpQueue_avappsvcpln_name": {
+            "defaultValue": "LongHttpQueue avappsvcpln",
+            "type": "String"
+        },
+        "alertrules_ServerErrors_avgetcache_name": {
+            "defaultValue": "ServerErrors avgetcache",
+            "type": "String"
+        },
+        "autoscalesettings_avappsvcpln_avredissg_name": {
+            "defaultValue": "avappsvcpln-avredissg",
+            "type": "String"
+        },
+        "components_avgetcache_name": {
+            "defaultValue": "avgetcache",
+            "type": "String"
+        },
+        "networkInterfaces_avredisvm509_name": {
+            "defaultValue": "avredisvm509",
+            "type": "String"
+        },
+        "networkSecurityGroups_avredisvm_nsg_name": {
+            "defaultValue": "avredisvm-nsg",
+            "type": "String"
+        },
+        "publicIPAddresses_avredisvm_ip_name": {
+            "defaultValue": "avredisvm-ip",
+            "type": "String"
+        },
+        "virtualNetworks_avredissg_vnet_name": {
+            "defaultValue": "avredissg-vnet",
+            "type": "String"
+        },
+        "namespaces_avsbsg_name": {
+            "defaultValue": "avsbsg",
+            "type": "String"
+        },
+        "storageAccounts_function27fc1e688858_name": {
+            "defaultValue": "function27fc1e688858",
+            "type": "String"
+        },
+        "serverfarms_avappsvcpln_name": {
+            "defaultValue": "avappsvcpln",
+            "type": "String"
+        },
+        "serverfarms_SoutheastAsiaPlan_name": {
+            "defaultValue": "SoutheastAsiaPlan",
+            "type": "String"
+        },
+        "sites_avgetcache_name": {
+            "defaultValue": "avgetcache",
+            "type": "String"
+        },
+        "sites_updatecachesg_name": {
+            "defaultValue": "updatecachesg",
+            "type": "String"
+        },
+        "AuthorizationRules_RootManageSharedAccessKey_name": {
+            "defaultValue": "avsbsg/RootManageSharedAccessKey",
+            "type": "String"
+        },
+        "queues_shoppingcart_name": {
+            "defaultValue": "avsbsg/shoppingcart",
+            "type": "String"
+        }
+    },
+    "variables": {},
+    "resources": [
+        {
+            "comments": "Generalized from resource: '/subscriptions/dfb39b7d-a854-4795-b2ae-b0f9cb6cc5fb/resourceGroups/avredissg/providers/Microsoft.Cache/Redis/avrediscache'.",
+            "type": "Microsoft.Cache/Redis",
+            "name": "[parameters('Redis_avrediscache_name')]",
+            "apiVersion": "2016-04-01",
+            "location": "Southeast Asia",
+            "tags": {},
+            "properties": {
+                "redisVersion": "3.0",
+                "sku": {
+                    "name": "Basic",
+                    "family": "C",
+                    "capacity": 0
+                },
+                "enableNonSslPort": false,
+                "redisConfiguration": {
+                    "maxclients": "256",
+                    "maxmemory-reserved": "2",
+                    "maxmemory-delta": "2"
+                }
+            },
+            "resources": [],
+            "dependsOn": []
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/dfb39b7d-a854-4795-b2ae-b0f9cb6cc5fb/resourceGroups/avredissg/providers/Microsoft.Cache/Redis/avdemocache'.",
+            "type": "Microsoft.Cache/Redis",
+            "name": "[parameters('Redis_avdemocache_name')]",
+            "apiVersion": "2016-04-01",
+            "location": "Southeast Asia",
+            "tags": {},
+            "properties": {
+                "redisVersion": "3.0",
+                "sku": {
+                    "name": "Premium",
+                    "family": "P",
+                    "capacity": 1
+                },
+                "enableNonSslPort": false,
+                "redisConfiguration": {
+                    "maxclients": "7500",
+                    "maxmemory-reserved": "200",
+                    "rdb-backup-enabled": "true",
+                    "rdb-backup-frequency": "15",
+                    "rdb-backup-max-snapshot-count": "1",
+                    "maxmemory-delta": "200",
+                    "rdb-storage-connection-string": "DefaultEndpointsProtocol=https;BlobEndpoint=https://azurefunctionsfc241873.blob.core.windows.net/;AccountName=azurefunctionsfc241873;AccountKey=[key hidden]"
+                },
+                "shardCount": "2"
+            },
+            "resources": [],
+            "dependsOn": []
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/dfb39b7d-a854-4795-b2ae-b0f9cb6cc5fb/resourceGroups/avredissg/providers/Microsoft.Compute/virtualMachines/avredisvm'.",
+            "type": "Microsoft.Compute/virtualMachines",
+            "name": "[parameters('virtualMachines_avredisvm_name')]",
+            "apiVersion": "2015-06-15",
+            "location": "southeastasia",
+            "properties": {
+                "hardwareProfile": {
+                    "vmSize": "Standard_D1_v2"
+                },
+                "storageProfile": {
+                    "imageReference": {
+                        "publisher": "Canonical",
+                        "offer": "UbuntuServer",
+                        "sku": "16.04.0-LTS",
+                        "version": "latest"
+                    },
+                    "osDisk": {
+                        "name": "[parameters('virtualMachines_avredisvm_name')]",
+                        "createOption": "FromImage",
+                        "vhd": {
+                            "uri": "[concat('https://azurefunctionsfc241873.blob.core.windows.net/vhds/', parameters('virtualMachines_avredisvm_name'),'201682810376.vhd')]"
+                        },
+                        "caching": "ReadWrite"
+                    },
+                    "dataDisks": []
+                },
+                "osProfile": {
+                    "computerName": "[parameters('virtualMachines_avredisvm_name')]",
+                    "adminUsername": "sgadmin",
+                    "linuxConfiguration": {
+                        "disablePasswordAuthentication": false
+                    },
+                    "secrets": [],
+                    "adminPassword": "[parameters('virtualMachines_avredisvm_adminPassword')]"
+                },
+                "networkProfile": {
+                    "networkInterfaces": [
+                        {
+                            "id": "[resourceId('Microsoft.Network/networkInterfaces', parameters('networkInterfaces_avredisvm509_name'))]"
+                        }
+                    ]
+                }
+            },
+            "resources": [],
+            "dependsOn": [
+                "[resourceId('Microsoft.Network/networkInterfaces', parameters('networkInterfaces_avredisvm509_name'))]"
+            ]
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/dfb39b7d-a854-4795-b2ae-b0f9cb6cc5fb/resourceGroups/avredissg/providers/microsoft.insights/alertrules/CPUHigh avappsvcpln'.",
+            "type": "microsoft.insights/alertrules",
+            "name": "[parameters('alertrules_CPUHigh_avappsvcpln_name')]",
+            "apiVersion": "2014-04-01",
+            "location": "East US",
+            "tags": {
+                "hidden-link:/subscriptions/dfb39b7d-a854-4795-b2ae-b0f9cb6cc5fb/resourceGroups/avredissg/providers/Microsoft.Web/serverfarms/avappsvcpln": "Resource"
+            },
+            "properties": {
+                "name": "[parameters('alertrules_CPUHigh_avappsvcpln_name')]",
+                "description": "The average CPU is high across all the instances of avappsvcpln",
+                "condition": {
+                    "odata.type": "Microsoft.Azure.Management.Insights.Models.ThresholdRuleCondition",
+                    "dataSource": {
+                        "odata.type": "Microsoft.Azure.Management.Insights.Models.RuleMetricDataSource",
+                        "resourceUri": "[resourceId('Microsoft.Web/serverfarms', parameters('serverfarms_avappsvcpln_name'))]",
+                        "metricNamespace": "",
+                        "metricName": "CpuPercentage"
+                    },
+                    "threshold": 90,
+                    "windowSize": "PT15M"
+                },
+                "action": {
+                    "odata.type": "Microsoft.Azure.Management.Insights.Models.RuleEmailAction",
+                    "sendToServiceOwners": true,
+                    "customEmails": []
+                }
+            },
+            "resources": [],
+            "dependsOn": [
+                "[resourceId('Microsoft.Web/serverfarms', parameters('serverfarms_avappsvcpln_name'))]"
+            ]
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/dfb39b7d-a854-4795-b2ae-b0f9cb6cc5fb/resourceGroups/avredissg/providers/microsoft.insights/alertrules/ForbiddenRequests avgetcache'.",
+            "type": "microsoft.insights/alertrules",
+            "name": "[parameters('alertrules_ForbiddenRequests_avgetcache_name')]",
+            "apiVersion": "2014-04-01",
+            "location": "East US",
+            "tags": {
+                "hidden-link:/subscriptions/dfb39b7d-a854-4795-b2ae-b0f9cb6cc5fb/resourceGroups/avredissg/providers/Microsoft.Web/sites/avgetcache": "Resource"
+            },
+            "properties": {
+                "name": "[parameters('alertrules_ForbiddenRequests_avgetcache_name')]",
+                "description": "avgetcache has some requests that are forbidden, status code 403.",
+                "condition": {
+                    "odata.type": "Microsoft.Azure.Management.Insights.Models.ThresholdRuleCondition",
+                    "dataSource": {
+                        "odata.type": "Microsoft.Azure.Management.Insights.Models.RuleMetricDataSource",
+                        "resourceUri": "[resourceId('Microsoft.Web/sites', parameters('sites_avgetcache_name'))]",
+                        "metricNamespace": "",
+                        "metricName": "Http403"
+                    },
+                    "windowSize": "PT5M"
+                },
+                "action": {
+                    "odata.type": "Microsoft.Azure.Management.Insights.Models.RuleEmailAction",
+                    "sendToServiceOwners": true,
+                    "customEmails": []
+                }
+            },
+            "resources": [],
+            "dependsOn": [
+                "[resourceId('Microsoft.Web/sites', parameters('sites_avgetcache_name'))]"
+            ]
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/dfb39b7d-a854-4795-b2ae-b0f9cb6cc5fb/resourceGroups/avredissg/providers/microsoft.insights/alertrules/LongHttpQueue avappsvcpln'.",
+            "type": "microsoft.insights/alertrules",
+            "name": "[parameters('alertrules_LongHttpQueue_avappsvcpln_name')]",
+            "apiVersion": "2014-04-01",
+            "location": "East US",
+            "tags": {
+                "hidden-link:/subscriptions/dfb39b7d-a854-4795-b2ae-b0f9cb6cc5fb/resourceGroups/avredissg/providers/Microsoft.Web/serverfarms/avappsvcpln": "Resource"
+            },
+            "properties": {
+                "name": "[parameters('alertrules_LongHttpQueue_avappsvcpln_name')]",
+                "description": "The HTTP queue for the instances of avappsvcpln has a large number of pending requests.",
+                "condition": {
+                    "odata.type": "Microsoft.Azure.Management.Insights.Models.ThresholdRuleCondition",
+                    "dataSource": {
+                        "odata.type": "Microsoft.Azure.Management.Insights.Models.RuleMetricDataSource",
+                        "resourceUri": "[resourceId('Microsoft.Web/serverfarms', parameters('serverfarms_avappsvcpln_name'))]",
+                        "metricNamespace": "",
+                        "metricName": "HttpQueueLength"
+                    },
+                    "threshold": 100,
+                    "windowSize": "PT5M"
+                },
+                "action": {
+                    "odata.type": "Microsoft.Azure.Management.Insights.Models.RuleEmailAction",
+                    "sendToServiceOwners": true,
+                    "customEmails": []
+                }
+            },
+            "resources": [],
+            "dependsOn": [
+                "[resourceId('Microsoft.Web/serverfarms', parameters('serverfarms_avappsvcpln_name'))]"
+            ]
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/dfb39b7d-a854-4795-b2ae-b0f9cb6cc5fb/resourceGroups/avredissg/providers/microsoft.insights/alertrules/ServerErrors avgetcache'.",
+            "type": "microsoft.insights/alertrules",
+            "name": "[parameters('alertrules_ServerErrors_avgetcache_name')]",
+            "apiVersion": "2014-04-01",
+            "location": "East US",
+            "tags": {
+                "hidden-link:/subscriptions/dfb39b7d-a854-4795-b2ae-b0f9cb6cc5fb/resourceGroups/avredissg/providers/Microsoft.Web/sites/avgetcache": "Resource"
+            },
+            "properties": {
+                "name": "[parameters('alertrules_ServerErrors_avgetcache_name')]",
+                "description": "avgetcache has some server errors, status code 5xx.",
+                "condition": {
+                    "odata.type": "Microsoft.Azure.Management.Insights.Models.ThresholdRuleCondition",
+                    "dataSource": {
+                        "odata.type": "Microsoft.Azure.Management.Insights.Models.RuleMetricDataSource",
+                        "resourceUri": "[resourceId('Microsoft.Web/sites', parameters('sites_avgetcache_name'))]",
+                        "metricNamespace": "",
+                        "metricName": "Http5xx"
+                    },
+                    "windowSize": "PT5M"
+                },
+                "action": {
+                    "odata.type": "Microsoft.Azure.Management.Insights.Models.RuleEmailAction",
+                    "sendToServiceOwners": true,
+                    "customEmails": []
+                }
+            },
+            "resources": [],
+            "dependsOn": [
+                "[resourceId('Microsoft.Web/sites', parameters('sites_avgetcache_name'))]"
+            ]
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/dfb39b7d-a854-4795-b2ae-b0f9cb6cc5fb/resourceGroups/avredissg/providers/microsoft.insights/autoscalesettings/avappsvcpln-avredissg'.",
+            "type": "microsoft.insights/autoscalesettings",
+            "name": "[parameters('autoscalesettings_avappsvcpln_avredissg_name')]",
+            "apiVersion": "2014-04-01",
+            "location": "East US",
+            "tags": {
+                "hidden-link:/subscriptions/dfb39b7d-a854-4795-b2ae-b0f9cb6cc5fb/resourceGroups/avredissg/providers/Microsoft.Web/serverfarms/avappsvcpln": "Resource"
+            },
+            "properties": {
+                "profiles": [
+                    {
+                        "name": "Default",
+                        "capacity": {
+                            "minimum": "1",
+                            "maximum": "2",
+                            "default": "1"
+                        },
+                        "rules": [
+                            {
+                                "metricTrigger": {
+                                    "metricName": "CpuPercentage",
+                                    "metricNamespace": "",
+                                    "metricResourceUri": "[resourceId('Microsoft.Web/serverfarms', parameters('serverfarms_avappsvcpln_name'))]",
+                                    "timeGrain": "PT1M",
+                                    "statistic": "Average",
+                                    "timeWindow": "PT10M",
+                                    "timeAggregation": "Average",
+                                    "operator": "GreaterThan",
+                                    "threshold": 80
+                                },
+                                "scaleAction": {
+                                    "direction": "Increase",
+                                    "type": "ChangeCount",
+                                    "value": "1",
+                                    "cooldown": "PT10M"
+                                }
+                            },
+                            {
+                                "metricTrigger": {
+                                    "metricName": "CpuPercentage",
+                                    "metricNamespace": "",
+                                    "metricResourceUri": "[resourceId('Microsoft.Web/serverfarms', parameters('serverfarms_avappsvcpln_name'))]",
+                                    "timeGrain": "PT1M",
+                                    "statistic": "Average",
+                                    "timeWindow": "PT1H",
+                                    "timeAggregation": "Average",
+                                    "operator": "LessThan",
+                                    "threshold": 60
+                                },
+                                "scaleAction": {
+                                    "direction": "Decrease",
+                                    "type": "ChangeCount",
+                                    "value": "1",
+                                    "cooldown": "PT1H"
+                                }
+                            }
+                        ]
+                    }
+                ],
+                "enabled": false,
+                "name": "[parameters('autoscalesettings_avappsvcpln_avredissg_name')]",
+                "targetResourceUri": "[resourceId('Microsoft.Web/serverfarms', parameters('serverfarms_avappsvcpln_name'))]"
+            },
+            "resources": [],
+            "dependsOn": [
+                "[resourceId('Microsoft.Web/serverfarms', parameters('serverfarms_avappsvcpln_name'))]"
+            ]
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/dfb39b7d-a854-4795-b2ae-b0f9cb6cc5fb/resourceGroups/avredissg/providers/microsoft.insights/components/avgetcache'.",
+            "type": "microsoft.insights/components",
+            "kind": "web",
+            "name": "[parameters('components_avgetcache_name')]",
+            "apiVersion": "2014-04-01",
+            "location": "Central US",
+            "tags": {},
+            "properties": {
+                "ApplicationId": "[parameters('components_avgetcache_name')]"
+            },
+            "resources": [],
+            "dependsOn": []
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/dfb39b7d-a854-4795-b2ae-b0f9cb6cc5fb/resourceGroups/avredissg/providers/Microsoft.Network/networkInterfaces/avredisvm509'.",
+            "type": "Microsoft.Network/networkInterfaces",
+            "name": "[parameters('networkInterfaces_avredisvm509_name')]",
+            "apiVersion": "2016-03-30",
+            "location": "southeastasia",
+            "properties": {
+                "ipConfigurations": [
+                    {
+                        "name": "ipconfig1",
+                        "properties": {
+                            "privateIPAddress": "10.1.0.4",
+                            "privateIPAllocationMethod": "Dynamic",
+                            "publicIPAddress": {
+                                "id": "[resourceId('Microsoft.Network/publicIPAddresses', parameters('publicIPAddresses_avredisvm_ip_name'))]"
+                            },
+                            "subnet": {
+                                "id": "[concat(resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetworks_avredissg_vnet_name')), '/subnets/default')]"
+                            }
+                        }
+                    }
+                ],
+                "dnsSettings": {
+                    "dnsServers": []
+                },
+                "enableIPForwarding": false,
+                "networkSecurityGroup": {
+                    "id": "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('networkSecurityGroups_avredisvm_nsg_name'))]"
+                }
+            },
+            "resources": [],
+            "dependsOn": [
+                "[resourceId('Microsoft.Network/publicIPAddresses', parameters('publicIPAddresses_avredisvm_ip_name'))]",
+                "[resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetworks_avredissg_vnet_name'))]",
+                "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('networkSecurityGroups_avredisvm_nsg_name'))]"
+            ]
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/dfb39b7d-a854-4795-b2ae-b0f9cb6cc5fb/resourceGroups/avredissg/providers/Microsoft.Network/networkSecurityGroups/avredisvm-nsg'.",
+            "type": "Microsoft.Network/networkSecurityGroups",
+            "name": "[parameters('networkSecurityGroups_avredisvm_nsg_name')]",
+            "apiVersion": "2016-03-30",
+            "location": "southeastasia",
+            "properties": {
+                "securityRules": [
+                    {
+                        "name": "default-allow-ssh",
+                        "properties": {
+                            "protocol": "TCP",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "22",
+                            "sourceAddressPrefix": "*",
+                            "destinationAddressPrefix": "*",
+                            "access": "Allow",
+                            "priority": 1000,
+                            "direction": "Inbound"
+                        }
+                    },
+                    {
+                        "name": "allowall",
+                        "properties": {
+                            "protocol": "TCP",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "6379",
+                            "sourceAddressPrefix": "*",
+                            "destinationAddressPrefix": "*",
+                            "access": "Allow",
+                            "priority": 1010,
+                            "direction": "Inbound"
+                        }
+                    }
+                ]
+            },
+            "resources": [],
+            "dependsOn": []
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/dfb39b7d-a854-4795-b2ae-b0f9cb6cc5fb/resourceGroups/avredissg/providers/Microsoft.Network/publicIPAddresses/avredisvm-ip'.",
+            "type": "Microsoft.Network/publicIPAddresses",
+            "name": "[parameters('publicIPAddresses_avredisvm_ip_name')]",
+            "apiVersion": "2016-03-30",
+            "location": "southeastasia",
+            "properties": {
+                "publicIPAllocationMethod": "Dynamic",
+                "idleTimeoutInMinutes": 4
+            },
+            "resources": [],
+            "dependsOn": []
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/dfb39b7d-a854-4795-b2ae-b0f9cb6cc5fb/resourceGroups/avredissg/providers/Microsoft.Network/virtualNetworks/avredissg-vnet'.",
+            "type": "Microsoft.Network/virtualNetworks",
+            "name": "[parameters('virtualNetworks_avredissg_vnet_name')]",
+            "apiVersion": "2016-03-30",
+            "location": "southeastasia",
+            "properties": {
+                "addressSpace": {
+                    "addressPrefixes": [
+                        "10.1.0.0/16"
+                    ]
+                },
+                "subnets": [
+                    {
+                        "name": "default",
+                        "properties": {
+                            "addressPrefix": "10.1.0.0/24"
+                        }
+                    }
+                ]
+            },
+            "resources": [],
+            "dependsOn": []
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/dfb39b7d-a854-4795-b2ae-b0f9cb6cc5fb/resourcegroups/avredissg/providers/Microsoft.ServiceBus/namespaces/avsbsg'.",
+            "type": "Microsoft.ServiceBus/namespaces",
+            "sku": {
+                "name": "Basic",
+                "tier": "Basic"
+            },
+            "kind": "Messaging",
+            "name": "[parameters('namespaces_avsbsg_name')]",
+            "apiVersion": "2015-08-01",
+            "location": "Southeast Asia",
+            "tags": {},
+            "properties": {
+                "provisioningState": "Succeeded",
+                "status": "Active",
+                "createdAt": "2016-09-27T15:12:53.283Z",
+                "serviceBusEndpoint": "[concat('https://', parameters('namespaces_avsbsg_name'),'.servicebus.windows.net:443/')]",
+                "enabled": true,
+                "updatedAt": "2016-09-27T15:13:18.637Z"
+            },
+            "resources": [],
+            "dependsOn": []
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/dfb39b7d-a854-4795-b2ae-b0f9cb6cc5fb/resourceGroups/avredissg/providers/Microsoft.Storage/storageAccounts/function27fc1e688858'.",
+            "type": "Microsoft.Storage/storageAccounts",
+            "sku": {
+                "name": "Standard_LRS",
+                "tier": "Standard"
+            },
+            "kind": "Storage",
+            "name": "[parameters('storageAccounts_function27fc1e688858_name')]",
+            "apiVersion": "2016-01-01",
+            "location": "southeastasia",
+            "tags": {},
+            "properties": {},
+            "resources": [],
+            "dependsOn": []
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/dfb39b7d-a854-4795-b2ae-b0f9cb6cc5fb/resourceGroups/avredissg/providers/Microsoft.Web/serverfarms/avappsvcpln'.",
+            "type": "Microsoft.Web/serverfarms",
+            "sku": {
+                "name": "F1",
+                "tier": "Free",
+                "size": "F1",
+                "family": "F",
+                "capacity": 0
+            },
+            "name": "[parameters('serverfarms_avappsvcpln_name')]",
+            "apiVersion": "2015-08-01",
+            "location": "Southeast Asia",
+            "properties": {
+                "name": "[parameters('serverfarms_avappsvcpln_name')]",
+                "numberOfWorkers": 0
+            },
+            "resources": [],
+            "dependsOn": []
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/dfb39b7d-a854-4795-b2ae-b0f9cb6cc5fb/resourceGroups/avredissg/providers/Microsoft.Web/serverfarms/SoutheastAsiaPlan'.",
+            "type": "Microsoft.Web/serverfarms",
+            "sku": {
+                "name": "Y1",
+                "tier": "Dynamic",
+                "size": "Y1",
+                "family": "Y",
+                "capacity": 0
+            },
+            "kind": "functionapp",
+            "name": "[parameters('serverfarms_SoutheastAsiaPlan_name')]",
+            "apiVersion": "2015-08-01",
+            "location": "Southeast Asia",
+            "properties": {
+                "name": "[parameters('serverfarms_SoutheastAsiaPlan_name')]",
+                "numberOfWorkers": 0
+            },
+            "resources": [],
+            "dependsOn": []
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/dfb39b7d-a854-4795-b2ae-b0f9cb6cc5fb/resourceGroups/avredissg/providers/Microsoft.Web/sites/avgetcache'.",
+            "type": "Microsoft.Web/sites",
+            "name": "[parameters('sites_avgetcache_name')]",
+            "apiVersion": "2015-08-01",
+            "location": "Southeast Asia",
+            "tags": {
+                "hidden-related:/subscriptions/dfb39b7d-a854-4795-b2ae-b0f9cb6cc5fb/resourceGroups/avredissg/providers/Microsoft.Web/serverfarms/avappsvcpln": "empty"
+            },
+            "properties": {
+                "name": "[parameters('sites_avgetcache_name')]",
+                "hostNames": [
+                    "avgetcache.azurewebsites.net"
+                ],
+                "enabledHostNames": [
+                    "avgetcache.azurewebsites.net",
+                    "avgetcache.scm.azurewebsites.net"
+                ],
+                "hostNameSslStates": [
+                    {
+                        "name": "[concat(parameters('sites_avgetcache_name'),'.azurewebsites.net')]",
+                        "sslState": 0,
+                        "thumbprint": null,
+                        "ipBasedSslState": 0
+                    },
+                    {
+                        "name": "[concat(parameters('sites_avgetcache_name'),'.scm.azurewebsites.net')]",
+                        "sslState": 0,
+                        "thumbprint": null,
+                        "ipBasedSslState": 0
+                    }
+                ],
+                "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', parameters('serverfarms_avappsvcpln_name'))]"
+            },
+            "resources": [],
+            "dependsOn": [
+                "[resourceId('Microsoft.Web/serverfarms', parameters('serverfarms_avappsvcpln_name'))]"
+            ]
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/dfb39b7d-a854-4795-b2ae-b0f9cb6cc5fb/resourceGroups/avredissg/providers/Microsoft.Web/sites/updatecachesg'.",
+            "type": "Microsoft.Web/sites",
+            "kind": "functionapp",
+            "name": "[parameters('sites_updatecachesg_name')]",
+            "apiVersion": "2015-08-01",
+            "location": "Southeast Asia",
+            "properties": {
+                "name": "[parameters('sites_updatecachesg_name')]",
+                "hostNames": [
+                    "updatecachesg.azurewebsites.net"
+                ],
+                "enabledHostNames": [
+                    "updatecachesg.azurewebsites.net",
+                    "updatecachesg.scm.azurewebsites.net"
+                ],
+                "hostNameSslStates": [
+                    {
+                        "name": "[concat(parameters('sites_updatecachesg_name'),'.azurewebsites.net')]",
+                        "sslState": 0,
+                        "thumbprint": null,
+                        "ipBasedSslState": 0
+                    },
+                    {
+                        "name": "[concat(parameters('sites_updatecachesg_name'),'.scm.azurewebsites.net')]",
+                        "sslState": 0,
+                        "thumbprint": null,
+                        "ipBasedSslState": 0
+                    }
+                ],
+                "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', parameters('serverfarms_SoutheastAsiaPlan_name'))]"
+            },
+            "resources": [],
+            "dependsOn": [
+                "[resourceId('Microsoft.Web/serverfarms', parameters('serverfarms_SoutheastAsiaPlan_name'))]"
+            ]
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/dfb39b7d-a854-4795-b2ae-b0f9cb6cc5fb/resourcegroups/avredissg/providers/Microsoft.ServiceBus/namespaces/avsbsg/AuthorizationRules/RootManageSharedAccessKey'.",
+            "type": "Microsoft.ServiceBus/namespaces/AuthorizationRules",
+            "name": "[parameters('AuthorizationRules_RootManageSharedAccessKey_name')]",
+            "apiVersion": "2015-08-01",
+            "properties": {
+                "rights": [
+                    "Listen",
+                    "Manage",
+                    "Send"
+                ]
+            },
+            "resources": [],
+            "dependsOn": [
+                "[resourceId('Microsoft.ServiceBus/namespaces', parameters('namespaces_avsbsg_name'))]"
+            ]
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/dfb39b7d-a854-4795-b2ae-b0f9cb6cc5fb/resourcegroups/avredissg/providers/Microsoft.ServiceBus/namespaces/avsbsg/queues/shoppingcart'.",
+            "type": "Microsoft.ServiceBus/namespaces/queues",
+            "name": "[parameters('queues_shoppingcart_name')]",
+            "apiVersion": "2015-08-01",
+            "location": "Southeast Asia",
+            "properties": {
+                "maxSizeInMegabytes": 16384,
+                "requiresDuplicateDetection": false,
+                "requiresSession": false,
+                "defaultMessageTimeToLive": "14:00:00",
+                "deadLetteringOnMessageExpiration": false,
+                "enableBatchedOperations": true,
+                "isAnonymousAccessible": false,
+                "status": "Active",
+                "createdAt": "2016-09-27T15:15:49.6284786Z",
+                "updatedAt": "2016-09-27T15:15:53.277Z",
+                "accessedAt": "2016-09-28T07:05:26.6439479Z",
+                "supportOrdering": false,
+                "countDetails": {
+                    "activeMessageCount": 0,
+                    "deadLetterMessageCount": 2,
+                    "scheduledMessageCount": 0,
+                    "transferMessageCount": 0,
+                    "transferDeadLetterMessageCount": 0
+                },
+                "autoDeleteOnIdle": "10675199.02:48:05.4775807",
+                "enablePartitioning": true,
+                "enableExpress": false
+            },
+            "resources": [],
+            "dependsOn": [
+                "[resourceId('Microsoft.ServiceBus/namespaces', parameters('namespaces_avsbsg_name'))]"
+            ]
+        }
+    ]
+}

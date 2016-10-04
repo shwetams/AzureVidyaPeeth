@@ -1,0 +1,72 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "virtualMachines_avredisvm_adminPassword": {
+            "value": null
+        },
+        "Redis_avrediscache_name": {
+            "value": null
+        },
+        "Redis_avdemocache_name": {
+            "value": null
+        },
+        "virtualMachines_avredisvm_name": {
+            "value": null
+        },
+        "alertrules_CPUHigh_avappsvcpln_name": {
+            "value": null
+        },
+        "alertrules_ForbiddenRequests_avgetcache_name": {
+            "value": null
+        },
+        "alertrules_LongHttpQueue_avappsvcpln_name": {
+            "value": null
+        },
+        "alertrules_ServerErrors_avgetcache_name": {
+            "value": null
+        },
+        "autoscalesettings_avappsvcpln_avredissg_name": {
+            "value": null
+        },
+        "components_avgetcache_name": {
+            "value": null
+        },
+        "networkInterfaces_avredisvm509_name": {
+            "value": null
+        },
+        "networkSecurityGroups_avredisvm_nsg_name": {
+            "value": null
+        },
+        "publicIPAddresses_avredisvm_ip_name": {
+            "value": null
+        },
+        "virtualNetworks_avredissg_vnet_name": {
+            "value": null
+        },
+        "namespaces_avsbsg_name": {
+            "value": null
+        },
+        "storageAccounts_function27fc1e688858_name": {
+            "value": null
+        },
+        "serverfarms_avappsvcpln_name": {
+            "value": null
+        },
+        "serverfarms_SoutheastAsiaPlan_name": {
+            "value": null
+        },
+        "sites_avgetcache_name": {
+            "value": null
+        },
+        "sites_updatecachesg_name": {
+            "value": null
+        },
+        "AuthorizationRules_RootManageSharedAccessKey_name": {
+            "value": null
+        },
+        "queues_shoppingcart_name": {
+            "value": null
+        }
+    }
+}

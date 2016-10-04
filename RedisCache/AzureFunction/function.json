@@ -1,0 +1,13 @@
+{
+  "bindings": [
+    {
+      "name": "mySbMsg",
+      "type": "serviceBusTrigger",
+      "direction": "in",
+      "queueName": "shoppingcart",
+      "connection": "sbconnstr",
+      "accessRights": "Manage"
+    }
+  ],
+  "disabled": false
+}
